@@ -28,8 +28,8 @@ function playRound(playerSelection, computerSelection) {
 let playerScore = 0;
 let computerScore = 0;
 let result = document.querySelector('.result');
-let computer = document.querySelector('.computer');
-let player = document.querySelector('.player')
+let computer = document.querySelector('.computer-score');
+let player = document.querySelector('.player-score')
 
 
 // Add eventlisteners to buttons
@@ -40,24 +40,48 @@ buttons.forEach((button) => {
 
 // Play a round with the user's selection and display the results of the round
 function game(ev) {
-    let roundResult = playRound(ev.srcElement.className, getComputerChoice());
+    // Get the computer's choice and display an icon
+    computerChoice = getComputerChoice();
+    computerIcon = document.querySelector('.computer-icon')
+    if (computerChoice === 'rock') {
+        computerIcon.innerText = '✊';
+    }
+    else if (computerChoice === 'paper') {
+        computerIcon.innerText = '✋';
+    }
+    else {
+        computerIcon.innerText = '✌';
+    }
+
+    // Get the player's choice and display an icon
+    playerChoice = ev.srcElement.className;
+    playerIcon = document.querySelector('.player-icon')
+    if (playerChoice === 'rock') {
+        playerIcon.innerText = '✊';
+    }
+    else if (playerChoice === 'paper') {
+        playerIcon.innerText = '✋';
+    }
+    else {
+        playerIcon.innerText = '✌';
+    }
+
+    // Play the round and display the result
+    let roundResult = playRound(playerChoice, computerChoice);
     if (roundResult === 'tie') {
-        result.innerText = 'Tie';
-        console.log(`Tie. playerScore is ${playerScore}, computerScore is ${computerScore}`);
+        result.innerText = 'It\'s a tie';
 
     }
     else if (roundResult === 'win') {
-        result.innerText = 'Win';
+        result.innerText = 'You win!';
         playerScore++;
         player.innerText = playerScore;
-        console.log(`Player wins. playerScore is ${playerScore}, computerScore is ${computerScore}`);
 
     }
     else {
-        result.innerText = 'Lose';
+        result.innerText = 'You lose';
         computerScore++;
         computer.innerText = computerScore;
-        console.log(`Player loses. playerScore is ${playerScore}, computerScore is ${computerScore}`);
 
     }
     declareWinner();
