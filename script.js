@@ -92,7 +92,9 @@ function game(ev) {
 function declareWinner() {
     if (playerScore === 5) {
         // Display the results
-        alert('You win!');
+        modalMessage.innerText = 'You win!';
+        modalEmoticon.innerText = '🎉';
+        openModal(playAgainModal);
 
         //Remove event listeners
         buttons.forEach((button) => {
@@ -103,7 +105,9 @@ function declareWinner() {
     }
     else if (computerScore === 5) {
         // Display the results
-        alert('You lose.');
+        modalMessage.innerText = 'You lose!';
+        modalEmoticon.innerText = '💀';
+        openModal(playAgainModal);
 
         //Remove event listeners
         buttons.forEach((button) => {
@@ -112,4 +116,36 @@ function declareWinner() {
 
         return'5';
     }    
+}
+
+// Modal functions
+
+const closeModalButton = document.querySelector('[data-modal-close]');
+const overlay = document.getElementById('overlay');
+const playAgainModal = document.querySelector('.modal');
+const modalMessage = document.querySelector('.modal-message');
+const modalEmoticon = document.querySelector('.modal-emoticon');
+const playAgainBtn = document.querySelector('.play-again-btn');
+
+
+closeModalButton.addEventListener('click', () => {
+    closeModal(playAgainModal);
+})
+
+playAgainBtn.addEventListener('click', () => {
+    location.reload();
+})
+
+function openModal(modal) {
+    if (modal == null) return;
+    modal.classList.add('active');
+    overlay.classList.add('active');
+
+}
+
+function closeModal(modal) {
+    if (modal == null) return;
+    modal.classList.remove('active');
+    overlay.classList.remove('active');
+
 }
